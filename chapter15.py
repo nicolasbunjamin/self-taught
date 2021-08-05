@@ -52,7 +52,60 @@ class Deck:
         return self.cards.pop()
 
 
-deck = Deck()
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.card = None
+        self.wins = 0
 
-for card in deck.cards:
-    print(card)
+
+class Game:
+    def __init__(self):
+        player1 = input("Player 1's name: ")
+        player2 = input("Player 2's name: ")
+        self.deck = Deck()
+        self.player1 = Player(player1)
+        self.player2 = Player(player2)
+
+    def wins(self, winner):
+        print("{} wins this round".format(winner))
+
+    def draw(self, p1n, p1c, p2n, p2c):
+        print("{} drew {}. {} drew {}.".format(p1n, p1c, p2n, p2c))
+
+    def winner(self, p1, p2):
+        if p1.wins > p2.wins:
+            return p1.name
+        if p2.wins > p1.wins:
+            return p2.name
+        return Nobody
+
+    def play(self):
+        cards = self.deck.cards
+        print("Let's begin!")
+
+        while len(cards) >= 2:
+            response = input("Press Q to quit or any key to play.")
+            if response.upper() == "Q":
+                break
+
+            p1n = self.player1.name
+            p2n = self.player2.name
+            p1c = self.deck.remove_card()
+            p2c = self.deck.remove_card()
+            self.draw(p1n, p1c, p2n, p2c)
+
+            if p1c > p2c:
+                self.player1.wins += 1
+                self.wins(self.player1.name)
+            else:
+                self.player2.wins += 2
+                self.wins(self.player2.name)
+
+        win = self.winner(self.player1, self.player2)
+
+        print("Game over. {} wins.".format(win))
+
+
+game = Game()
+game.play()
