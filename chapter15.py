@@ -1,3 +1,6 @@
+from random import shuffle
+
+
 class Card:
 
     """the first two indexes of the values tuple are None,
@@ -35,17 +38,21 @@ class Card:
         return False
 
 
-card1 = Card(5, 0)
-card2 = Card(6, 2)
-card3 = Card(6, 1)
-card4 = Card(6, 3)
+class Deck:
+    def __init__(self):
+        self.cards = []
+        for i in range(2, 15):
+            for j in range(4):
+                self.cards.append(Card(i, j))
+        shuffle(self.cards)
 
-print(card1)
-print(card2)
-print(card3)
-print(card4)
+    def remove_card(self):
+        if len(self.cards) == 0:
+            return
+        return self.cards.pop()
 
-print(card1 > card2)  # False
-print(card2 < card3)  # False
-print(card2 > card4)  # False
-print(card4 > card3)  # True
+
+deck = Deck()
+
+for card in deck.cards:
+    print(card)
