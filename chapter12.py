@@ -7,7 +7,6 @@ class Apple:
         self.color = c
         self.taste = t
         self.source = s
-        self.recs.append((self.w))
 
 
 class Circle:
